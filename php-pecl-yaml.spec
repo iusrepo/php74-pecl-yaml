@@ -4,17 +4,14 @@
 %{!?php_extdir: %{expand: %%global php_extdir %(php-config --extension-dir)}}
 
 Name:           php-pecl-yaml
-Version:        1.0.1
-Release:        4%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 Group:          Development/Languages
 
 License:        MIT
 URL:            http://code.google.com/p/php-yaml/
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
-# Makes compiling with Fedora-specific CFLAGS work
-# http://pecl.php.net/bugs/bug.php?id=22703
-Patch0:         php-pecl-yaml-1.0.1-cflags.patch
 
 BuildRequires:      php-devel >= 5.2.0
 BuildRequires:      php-pear libyaml-devel
@@ -37,7 +34,6 @@ constructs as valid YAML 1.1 documents.
 
 %prep
 %setup -q -c
-%patch0 -p0 -b .cflags
 mv package.xml %{pecl_name}-%{version}/package.xml
 
 
@@ -110,6 +106,10 @@ fi
 
 
 %changelog
+* Fri Apr 20 2012 Theodore Lee <theo148@gmail.com> - 1.1.0-1
+- Update to upstream 1.1.0 release
+- Drop upstreamed cflags patch
+
 * Fri May 13 2011 Theodore Lee <theo148@gmail.com> - 1.0.1-4
 - Fix commenting in module configuration
 
