@@ -5,7 +5,7 @@
 
 Name:           php-pecl-yaml
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 Group:          Development/Languages
 
@@ -108,6 +108,9 @@ fi
 
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Wed Nov 20 2013 Theodore Lee <theo148@gmail.com> - 1.1.1-1
 - Update to upstream 1.1.1 release
 
