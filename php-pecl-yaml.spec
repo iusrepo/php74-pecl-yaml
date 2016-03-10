@@ -9,7 +9,7 @@
 
 Name:           php-pecl-yaml
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 Group:          Development/Languages
 
@@ -55,11 +55,13 @@ phpize
 make %{?_smp_mflags}
 
 
+%check
+cd %{pecl_name}-%{version}
 # Test fails due to datetime handling issues since PHP 5.6.19RC1
 # https://bugs.php.net/bug.php?id=71696
-#%check
-#cd %{pecl_name}-%{version}
-#make test NO_INTERACTION=1 REPORT_EXIT_STATUS=1
+rm tests/yaml_002.phpt
+
+make test NO_INTERACTION=1 REPORT_EXIT_STATUS=1
 
 
 %install
@@ -118,6 +120,10 @@ fi
 
 
 %changelog
+* Thu Mar 10 2016 Remi Collet <remi@fedoraproject.org> - 1.2.0-2
+- enable test suite for Koschei
+- drop 1 known to fail test
+
 * Tue Mar 08 2016 Theodore Lee <theo148@gmail.com> - 1.2.0-1
 - Update to upstream 1.2.0 release
 - Disable test suite until datetime handling is fixed
