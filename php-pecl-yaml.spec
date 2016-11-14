@@ -1,15 +1,14 @@
 %global pecl_name yaml
 %global ini_name  40-%{pecl_name}.ini
-%global prever    RC8
 
 Name:           php-pecl-yaml
 Version:        2.0.0
-Release:        0.9.%{prever}%{?dist}
+Release:        1%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 Group:          Development/Languages
 
 License:        MIT
-URL:            http://code.google.com/p/php-yaml/
+URL:            http://pecl.php.net/package/yaml
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
 BuildRequires:  php-devel >= 7
@@ -100,6 +99,10 @@ done
 
 
 %changelog
+* Mon Nov 14 2016 Remi Collet <remi@fedoraproject.org> - 2.0.0-1
+- upate to 2.0.0
+- fix project URL
+
 * Mon Jun 27 2016 Remi Collet <remi@fedoraproject.org> - 2.0.0-0.1.RC8
 - upate to 2.0.0RC8
 - rebuild for https://fedoraproject.org/wiki/Changes/php70
