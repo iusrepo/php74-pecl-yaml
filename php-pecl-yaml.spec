@@ -3,13 +3,15 @@
 
 Name:           php-pecl-yaml
 Version:        2.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 Group:          Development/Languages
 
 License:        MIT
 URL:            http://pecl.php.net/package/yaml
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
+
+Patch0:        f220c0400bd1875879da58788187774a04430ecb.patch
 
 BuildRequires:  php-devel >= 7
 BuildRequires:  php-pear
@@ -31,6 +33,10 @@ constructs as valid YAML 1.1 documents.
 
 %prep
 %setup -q -c
+
+pushd %{pecl_name}-%{version}%{?prever}
+%patch0 -p1 -b .upstream
+popd
 
 # Remove test file to avoid regsitration (pecl list-files yaml)
 sed -e 's/role="test"/role="src"/' \
@@ -99,6 +105,9 @@ done
 
 
 %changelog
+* Wed Mar 29 2017 Remi Collet <remi@fedoraproject.org> - 2.0.0-3
+- add upstream patch to fix FTBFS with 7.1.4RC1, reported by Koschei
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 

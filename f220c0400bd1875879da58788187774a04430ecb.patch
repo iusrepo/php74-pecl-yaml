@@ -1,0 +1,68 @@
+From f220c0400bd1875879da58788187774a04430ecb Mon Sep 17 00:00:00 2001
+From: Remi Collet <remi@php.net>
+Date: Wed, 29 Mar 2017 10:45:07 +0200
+Subject: [PATCH] relax test to pass with 7.1.4RC1
+
+---
+ tests/yaml_parse_003.phpt | 4 ++--
+ tests/yaml_parse_004.phpt | 2 +-
+ tests/yaml_parse_006.phpt | 8 ++++----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/tests/yaml_parse_003.phpt b/tests/yaml_parse_003.phpt
+index a7197ce..5ffab2c 100644
+--- a/tests/yaml_parse_003.phpt
++++ b/tests/yaml_parse_003.phpt
+@@ -12,8 +12,8 @@ grave-accent: `text
+ '));
+ ?>
+ --EXPECTF--
+-Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 16), context while scanning for the next token (line 2, column 16) in %syaml_parse_003.php on line 4
++Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 16), context while scanning for the next token (line 2, column 16) in %syaml_parse_003.php on line %d
+ bool(false)
+ 
+-Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 15), context while scanning for the next token (line 2, column 15) in %syaml_parse_003.php on line 7
++Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 15), context while scanning for the next token (line 2, column 15) in %syaml_parse_003.php on line %d
+ bool(false)
+diff --git a/tests/yaml_parse_004.phpt b/tests/yaml_parse_004.phpt
+index ea7c08f..5c97721 100644
+--- a/tests/yaml_parse_004.phpt
++++ b/tests/yaml_parse_004.phpt
+@@ -16,5 +16,5 @@ reference: *broken_pointer_to_define
+ '));
+ ?>
+ --EXPECTF--
+-Warning: yaml_parse(): alias broken_pointer_to_define is not registered (line 6, column 37) in %syaml_parse_004.php on line 8
++Warning: yaml_parse(): alias broken_pointer_to_define is not registered (line 6, column 37) in %syaml_parse_004.php on line %d
+ bool(false)
+diff --git a/tests/yaml_parse_006.phpt b/tests/yaml_parse_006.phpt
+index dc24955..f82d58c 100644
+--- a/tests/yaml_parse_006.phpt
++++ b/tests/yaml_parse_006.phpt
+@@ -33,10 +33,10 @@ var_dump(yaml_parse('---
+ '));
+ ?>
+ --EXPECTF--
+-Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 1), context while scanning for the next token (line 2, column 1) in %syaml_parse_006.php on line 5
++Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 1), context while scanning for the next token (line 2, column 1) in %syaml_parse_006.php on line %d
+ bool(false)
+ 
+-Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 3), context while scanning for the next token (line 2, column 3) in %syaml_parse_006.php on line 9
++Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 3), context while scanning for the next token (line 2, column 3) in %syaml_parse_006.php on line %d
+ bool(false)
+ array(1) {
+   ["key"]=>
+@@ -47,8 +47,8 @@ array(1) {
+   string(26) "space and tab before value"
+ }
+ 
+-Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 2), context while scanning for the next token (line 2, column 2) in %syaml_parse_006.php on line 21
++Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 2), context while scanning for the next token (line 2, column 2) in %syaml_parse_006.php on line %d
+ bool(false)
+ 
+-Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 4), context while scanning for the next token (line 2, column 4) in %syaml_parse_006.php on line 25
++Warning: yaml_parse(): scanning error encountered during parsing: found character that cannot start any token (line 2, column 4), context while scanning for the next token (line 2, column 4) in %syaml_parse_006.php on line %d
+ bool(false)
+-- 
+2.1.4
+
