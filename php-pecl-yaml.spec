@@ -1,9 +1,12 @@
+# we don't want -z defs linker flag
+%undefine _strict_symbol_defs_build
+
 %global pecl_name yaml
 %global ini_name  40-%{pecl_name}.ini
 
 Name:           php-pecl-yaml
 Version:        2.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 Group:          Development/Languages
 
@@ -102,6 +105,9 @@ done
 
 
 %changelog
+* Fri Jan 26 2018 Remi Collet <remi@remirepo.net> - 2.0.2-2
+- undefine _strict_symbol_defs_build
+
 * Tue Oct  3 2017 Remi Collet <remi@fedoraproject.org> - 2.0.2-1
 - update to 2.0.2
 
