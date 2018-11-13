@@ -5,16 +5,13 @@
 %global ini_name  40-%{pecl_name}.ini
 
 Name:           php-pecl-yaml
-Version:        2.0.2
-Release:        5%{?dist}
+Version:        2.0.3
+Release:        1%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
-Group:          Development/Languages
 
 License:        MIT
 URL:            http://pecl.php.net/package/yaml
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
-
-Patch0:        https://patch-diff.githubusercontent.com/raw/php/pecl-file_formats-yaml/pull/33.patch
 
 BuildRequires:  php-devel >= 7
 BuildRequires:  php-pear
@@ -36,10 +33,6 @@ constructs as valid YAML 1.1 documents.
 
 %prep
 %setup -q -c
-
-pushd %{pecl_name}-%{version}%{?prever}
-%patch0 -p1 -b .pr33
-popd
 
 # Remove test file to avoid regsitration (pecl list-files yaml)
 sed -e 's/role="test"/role="src"/' \
@@ -108,6 +101,10 @@ done
 
 
 %changelog
+* Tue Nov 13 2018 Remi Collet <remi@remirepo.net> - 2.0.3-1
+- update to 2.0.3
+- drop patch merged upstream
+
 * Thu Oct 11 2018 Remi Collet <remi@remirepo.net> - 2.0.2-5
 - Rebuild for https://fedoraproject.org/wiki/Changes/php73
 - add better patch for PHP 7.3 from
