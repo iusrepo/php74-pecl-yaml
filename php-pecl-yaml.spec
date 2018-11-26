@@ -5,7 +5,7 @@
 %global ini_name  40-%{pecl_name}.ini
 
 Name:           php-pecl-yaml
-Version:        2.0.3
+Version:        2.0.4
 Release:        1%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 
@@ -101,6 +101,9 @@ done
 
 
 %changelog
+* Mon Nov 26 2018 Remi Collet <remi@remirepo.net> - 2.0.4-1
+- update to 2.0.4
+
 * Tue Nov 13 2018 Remi Collet <remi@remirepo.net> - 2.0.3-1
 - update to 2.0.3
 - drop patch merged upstream
