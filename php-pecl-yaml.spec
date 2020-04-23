@@ -5,15 +5,17 @@
 %global ini_name  40-%{pecl_name}.ini
 
 Name:           php-pecl-yaml
-Version:        2.0.4
-Release:        5%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 
 License:        MIT
-URL:            http://pecl.php.net/package/yaml
-Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
+URL:            https://pecl.php.net/package/yaml
+Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
-BuildRequires:  php-devel >= 7
+Patch0:         https://patch-diff.githubusercontent.com/raw/php/pecl-file_formats-yaml/pull/45.patch
+
+BuildRequires:  php-devel >= 7.1
 BuildRequires:  php-pear
 BuildRequires:  libyaml-devel
 
@@ -38,6 +40,9 @@ constructs as valid YAML 1.1 documents.
 sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     package.xml >%{pecl_name}-%{version}%{?prever}/package.xml
+
+cd %{pecl_name}-%{version}%{?prever}
+%patch0 -p1 -b .pr45
 
 
 %build
@@ -101,6 +106,12 @@ done
 
 
 %changelog
+* Thu Apr 23 2020 Remi Collet <remi@remirepo.net> - 2.1.0-1
+- update to 2.1.0
+- raise dependency on PHP 7.1
+- fix 32-bit build using patch from
+  https://github.com/php/pecl-file_formats-yaml/pull/45
+
 * Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
