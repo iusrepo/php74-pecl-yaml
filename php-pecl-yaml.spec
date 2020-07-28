@@ -6,7 +6,7 @@
 
 Name:           php-pecl-yaml
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 
 License:        MIT
@@ -106,6 +106,9 @@ done
 
 
 %changelog
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Thu Apr 23 2020 Remi Collet <remi@remirepo.net> - 2.1.0-1
 - update to 2.1.0
 - raise dependency on PHP 7.1
