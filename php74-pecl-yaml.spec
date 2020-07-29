@@ -3,10 +3,11 @@
 
 %global pecl_name yaml
 %global ini_name  40-%{pecl_name}.ini
+%global php       php74
 
-Name:           php-pecl-yaml
+Name:           %{php}-pecl-yaml
 Version:        2.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 
 License:        MIT
@@ -15,8 +16,9 @@ Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
 Patch0:         https://patch-diff.githubusercontent.com/raw/php/pecl-file_formats-yaml/pull/45.patch
 
-BuildRequires:  php-devel >= 7.1
-BuildRequires:  php-pear
+BuildRequires:  %{php}-devel
+# build require pear1's dependencies to avoid mismatched php stacks
+BuildRequires:  pear1 %{php}-cli %{php}-common %{php}-xml
 BuildRequires:  libyaml-devel
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -26,6 +28,11 @@ Provides:       php-%{pecl_name} = %{version}
 Provides:       php-%{pecl_name}%{?_isa} = %{version}
 Provides:       php-pecl(%{pecl_name}) = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+
+# safe replacement
+Provides:       php-pecl-%{pecl_name} = %{version}-%{release}
+Provides:       php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+Conflicts:      php-pecl-%{pecl_name} < %{version}-%{release}
 
 
 %description
@@ -62,8 +69,8 @@ cd %{pecl_name}-%{version}%{?prever}
 make install INSTALL_ROOT=%{buildroot}
 
 # Basic configuration
-mkdir -p %{buildroot}%{_sysconfdir}/php.d
-cat > %{buildroot}%{_sysconfdir}/php.d/%{ini_name} << 'EOF'
+mkdir -p %{buildroot}%{php_inidir}
+cat > %{buildroot}%{php_inidir}/%{ini_name} << 'EOF'
 ; Enable %{pecl_name} extension module
 extension=%{pecl_name}.so
 
@@ -89,7 +96,7 @@ EOF
 
 # Package info
 mkdir -p %{buildroot}%{pecl_xmldir}
-install -p -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
+install -p -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{pecl_name}.xml
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
@@ -97,15 +104,36 @@ do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
+%triggerin -- pear1
+if [ -x %{__pecl} ]; then
+    %{pecl_install} %{pecl_xmldir}/%{pecl_name}.xml >/dev/null || :
+fi
+
+
+%posttrans
+if [ -x %{__pecl} ]; then
+    %{pecl_install} %{pecl_xmldir}/%{pecl_name}.xml >/dev/null || :
+fi
+
+
+%postun
+if [ $1 -eq 0 -a -x %{__pecl} ]; then
+    %{pecl_uninstall} %{pecl_name} >/dev/null || :
+fi
+
+
 %files
 %license %{pecl_name}-%{version}%{?prever}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
-%config(noreplace) %{_sysconfdir}/php.d/%{ini_name}
+%config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
-%{pecl_xmldir}/%{name}.xml
+%{pecl_xmldir}/%{pecl_name}.xml
 
 
 %changelog
+* Wed Jul 29 2020 Carl George <carl@george.computer> - 2.1.0-3
+- Port from Fedora to IUS
+
 * Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
