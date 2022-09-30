@@ -6,15 +6,13 @@
 %global php       php74
 
 Name:           %{php}-pecl-yaml
-Version:        2.1.0
-Release:        3%{?dist}
+Version:        2.2.2
+Release:        1%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 
 License:        MIT
 URL:            https://pecl.php.net/package/yaml
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
-
-Patch0:         https://patch-diff.githubusercontent.com/raw/php/pecl-file_formats-yaml/pull/45.patch
 
 BuildRequires:  %{php}-devel
 # build require pear1's dependencies to avoid mismatched php stacks
@@ -49,7 +47,6 @@ sed -e 's/role="test"/role="src"/' \
     package.xml >%{pecl_name}-%{version}%{?prever}/package.xml
 
 cd %{pecl_name}-%{version}%{?prever}
-%patch0 -p1 -b .pr45
 
 
 %build
@@ -131,6 +128,9 @@ fi
 
 
 %changelog
+* Fri Sep 30 2022 Carl George <carl@george.computer> - 2.2.2-1
+- Update to 2.2.2
+
 * Wed Jul 29 2020 Carl George <carl@george.computer> - 2.1.0-3
 - Port from Fedora to IUS
 
